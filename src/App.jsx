@@ -6,7 +6,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      people: []
+      people: contacts.slice(0, 5)
     };
   }
 
@@ -20,27 +20,59 @@ class App extends React.Component {
     );
 
     const randomPeople = contacts.slice(randomNumber, randomNumber + 5);
-    console.log(randomPeople);
 
     this.setState({
       people: (this.state.people = randomPeople)
     });
+  };
 
-    console.log(this.state.people);
+  // Iteration 2
+  addNewRandom = () => {
+    let randomNumber = Math.floor(Math.random() * contacts.length);
+    console.log(randomNumber);
+
+    // this.setState({
+    //   people: this.state.addNewRandom
+    // });
   };
 
   render() {
     return (
       <div className="App">
-        <h1>Hi</h1>
+        <h1>IronContacts</h1>
         <button onClick={() => this.randomizePeople()}>Randomize!</button>
-        {/* <p>{this.state.people}</p> */}
+        <button onClick={() => this.addNewRandom()}>First Five!</button>
 
-        <ul>
+        <table className="center">
+          <thead>
+            <tr>
+              <th>name</th>
+              <th>picture</th>
+              <th>popularity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.people.map((item) => {
+              return (
+                <tr key={item.id}>
+                  <td>
+                    <img className="photo" src={item.pictureUrl} alt="" />
+                  </td>
+                  <td>
+                    <h2>{item.name}</h2>
+                  </td>
+                  <td>{item.popularity.toFixed(2)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+
+        {/* <ul>
           {this.state.people.map((item) => {
             return <li key={item.id}>{item.name}</li>;
           })}
-        </ul>
+        </ul> */}
       </div>
     );
   }
