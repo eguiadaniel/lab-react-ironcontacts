@@ -6,15 +6,21 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      people: this.peopleList,
+      people: contacts.slice(0, 5),
       maxLength: 5
     };
   }
-  
-    peopleList = contacts.slice(0, this.state.maxLength);
 
+  // peopleList = [];
+  // for (let i = 0 ; i < max; i++) {
+  //   this.peopleList.push(contacts[i])
+  //   }
+
+  // firstArray()
+  // peopleList = contacts.slice(0, this.maxLength);
 
   // Iteration 0 - My own test
+
   randomizePeople = () => {
     this.setState({
       people: (this.state.people = contacts)
@@ -31,24 +37,22 @@ class App extends React.Component {
     });
   };
 
-
-  // Iteration 1
-
+  // Iteration 2
+  // Add New Random contact
   addNewRandom = () => {
+    const copyPeople = [...this.state.people];
     let randomNumber = Math.floor(Math.random() * contacts.length);
     console.log(randomNumber);
 
     let randomPerson = contacts[randomNumber];
-    let newArrayPeople = this.state.people.push(randomPerson)
+    if (!copyPeople.includes(randomPerson)) copyPeople.push(randomPerson);
 
     this.setState({
-      maxLength : this.state.maxLength +1
-    })
+      people: copyPeople
+    });
+
     console.log(randomPerson);
     console.log(this.state.people);
-    console.log(newArrayPeople);
-
-
 
     // this.setState({
     //   people: this.state.people.push(randomPerson)
@@ -60,7 +64,7 @@ class App extends React.Component {
       <div className="App">
         <h1>IronContacts</h1>
         <button onClick={() => this.randomizePeople()}>Randomize!</button>
-        <button onClick={() => this.addNewRandom()}>First Five!</button>
+        <button onClick={() => this.addNewRandom()}>New Random!</button>
 
         <table className="center">
           <thead>
