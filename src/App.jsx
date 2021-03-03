@@ -17,7 +17,8 @@ class App extends React.Component {
   //   }
 
   // firstArray()
-  // peopleList = contacts.slice(0, this.maxLength);
+
+  peopleList = contacts.slice(0, this.maxLength);
 
   // Iteration 0 - My own test
 
@@ -59,12 +60,55 @@ class App extends React.Component {
     //  });
   };
 
+  sortByName = () => {
+    // sort by Name
+    this.setState({
+      people: this.state.people.sort(function (a, b) {
+        var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (nameA > nameB) {
+          return -1;
+        }
+        if (nameA < nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      })
+    });
+  };
+
+  sortByPopularity = () => {
+    // sort by popularity
+    this.setState({
+      people: this.state.people.sort(function (a, b) {
+        return b.popularity - a.popularity;
+      })
+    });
+  };
+
+  deleteContact = (e) => {
+    console.log(this.state.people);
+    console.log(e);
+    // const newList = this.state.list.splice(this.state.list.indexOf(value), 1);
+    // function ActionLink() {
+    // function handleClick(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+    // }
+  };
+
   render() {
     return (
       <div className="App">
         <h1>IronContacts</h1>
         <button onClick={() => this.randomizePeople()}>Randomize!</button>
         <button onClick={() => this.addNewRandom()}>New Random!</button>
+        <button onClick={() => this.sortByName()}>Sort by Name</button>
+        <button onClick={() => this.sortByPopularity()}>
+          Sort by Popularity
+        </button>
 
         <table className="center">
           <thead>
@@ -72,12 +116,13 @@ class App extends React.Component {
               <th>name</th>
               <th>picture</th>
               <th>popularity</th>
+              <th>remove</th>
             </tr>
           </thead>
           <tbody>
             {this.state.people.map((item) => {
               return (
-                <tr key={item.id}>
+                <tr id={item.id} key={item.id}>
                   <td>
                     <img className="photo" src={item.pictureUrl} alt="" />
                   </td>
@@ -85,6 +130,9 @@ class App extends React.Component {
                     <h2>{item.name}</h2>
                   </td>
                   <td>{item.popularity.toFixed(2)}</td>
+                  <td>
+                    <button onClick={() => this.deleteContact()}>Delete</button>
+                  </td>
                 </tr>
               );
             })}
