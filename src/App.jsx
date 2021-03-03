@@ -6,10 +6,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      people: contacts.slice(0, 5)
+      people: this.peopleList,
+      maxLength: 5
     };
   }
+  
+    peopleList = contacts.slice(0, this.state.maxLength);
 
+
+  // Iteration 0 - My own test
   randomizePeople = () => {
     this.setState({
       people: (this.state.people = contacts)
@@ -26,14 +31,28 @@ class App extends React.Component {
     });
   };
 
-  // Iteration 2
+
+  // Iteration 1
+
   addNewRandom = () => {
     let randomNumber = Math.floor(Math.random() * contacts.length);
     console.log(randomNumber);
 
+    let randomPerson = contacts[randomNumber];
+    let newArrayPeople = this.state.people.push(randomPerson)
+
+    this.setState({
+      maxLength : this.state.maxLength +1
+    })
+    console.log(randomPerson);
+    console.log(this.state.people);
+    console.log(newArrayPeople);
+
+
+
     // this.setState({
-    //   people: this.state.addNewRandom
-    // });
+    //   people: this.state.people.push(randomPerson)
+    //  });
   };
 
   render() {
