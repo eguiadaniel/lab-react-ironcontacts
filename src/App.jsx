@@ -6,19 +6,23 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      people: contacts.slice(0, 5),
+      // people: contacts.slice(0, 5),
+      people: this.peopleListVariable,
       maxLength: 5
     };
   }
+  
+  // Variable not being passed to this.state.people
+  maxLength = 5;
+  peopleListVariable = contacts.slice(0, this.maxLength);
 
-  // peopleList = [];
-  // for (let i = 0 ; i < max; i++) {
-  //   this.peopleList.push(contacts[i])
-  //   }
+  // This method is not called, how could it be done?
+  peopleListMethod = () => { this.setState({
+    people: (this.state.people = contacts
+      .slice(0, this.state.maxLength))
+    });
+  };
 
-  // firstArray()
-
-  peopleList = contacts.slice(0, this.maxLength);
 
   // Iteration 0 - My own test
 
