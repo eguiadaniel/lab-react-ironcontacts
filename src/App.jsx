@@ -92,16 +92,25 @@ class App extends React.Component {
     });
   };
 
-  deleteContact = (e) => {
-    console.log(this.state.people);
-    console.log(e);
-    // const newList = this.state.list.splice(this.state.list.indexOf(value), 1);
-    // function ActionLink() {
-    // function handleClick(e) {
-    e.preventDefault();
-    console.log('The link was clicked.');
+  deleteContact = id => {
+    const peopleCopy = this.state.people;
+    const contactIndex = peopleCopy.findIndex(item => item.id === id);
+    
+    peopleCopy.splice(contactIndex, 1)
+    this.setState({
+      people: peopleCopy
+    })
     // }
   };
+
+  // deleteMovieHandler = id => {
+  //   const moviesCopy = this.state.movies;
+  //   const movieIndex = moviesCopy.findIndex(item => item.id === id);
+  //   moviesCopy.splice(movieIndex, 1);
+  //   this.setState({
+  //     movies: moviesCopy
+  //   })
+  // }
 
   render() {
     return (
@@ -135,7 +144,7 @@ class App extends React.Component {
                   </td>
                   <td>{item.popularity.toFixed(2)}</td>
                   <td>
-                    <button onClick={() => this.deleteContact()}>Delete</button>
+                    <button onClick={() => this.deleteContact(item.id)}>Delete</button>
                   </td>
                 </tr>
               );
